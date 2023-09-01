@@ -4,16 +4,10 @@
 	</view>
 </template>
 
-<script>
-	export default {
-		data() {
-			return {
-				
-			};
-		}
-	}
+<script lang="ts" setup>
+
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 </style>

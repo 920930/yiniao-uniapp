@@ -24,6 +24,30 @@
 			</view>
 		</view>
 	</view>
+	<view class="floor2">
+		<view class="floor2-bg">
+			<view class="floor2-bg-item">
+				<uni-icons type="auth-filled" color='green' size="40"></uni-icons>
+				<text class="floor2-bg-item-title">真专业</text>
+				<text>自营店铺 自由工人</text>
+			</view>
+			<view class="floor2-bg-item">
+				<uni-icons type="hand-up-filled" color='green' size="40"></uni-icons>
+				<text class="floor2-bg-item-title">高品质</text>
+				<text>质保期为同业3-5倍</text>
+			</view>
+			<view class="floor2-bg-item">
+				<uni-icons type="medal-filled" color='green' size="40"></uni-icons>
+				<text class="floor2-bg-item-title">全环保</text>
+				<text>施工均采用国家认证环保材料</text>
+			</view>
+			<view class="floor2-bg-item">
+				<uni-icons type="headphones" color='green' size="40"></uni-icons>
+				<text class="floor2-bg-item-title">优服务</text>
+				<text>7✖14✖365客服</text>
+			</view>
+		</view>
+	</view>
 	<swiper class="swiper" circular :interval="2000" :display-multiple-items="2" next-margin='60rpx'>
 		<swiper-item>
 			<view class="swiper-item" style="background-color: red;">A</view>
@@ -41,6 +65,7 @@
 			<view class="">
 				<text class="en">qiangmianfanxin</text>
 				<text class="title">墙面翻新</text>
+				<uni-icons type="checkbox-filled" size="20"></uni-icons>
 				<view class="info">解决墙面问题，益鸟不止有”乳胶漆</view>
 			</view>
 			
@@ -48,21 +73,30 @@
 		<view class="ys-item">
 			<view class="">
 				<text class="en">fangshuibulou</text>
-				<text class="title">防水补漏</text>
+				<view style="display: flex; align-items: center;">
+					<text class="title">防水补漏</text>
+					<uni-icons type="checkbox-filled" size="20"></uni-icons>
+				</view>
 				<view class="info">漏水烦恼，交给益鸟，一次维修，终身无忧</view>
 			</view>
 		</view>
 		<view class="ys-item">
 			<view class="">
 				<text class="en">jubugaizhao</text>
-				<text class="title">局部改造</text>
+				<view style="display: flex; align-items: center;">
+					<text class="title">局部改造</text>
+					<uni-icons type="checkbox-filled" size="20"></uni-icons>
+				</view>
 				<view class="info">风格多变，工期可控</view>
 			</view>
 		</view>
 		<view class="ys-item">
 			<view class="">
 				<text class="en">weixiuanzhuang</text>
-				<text class="title">维修安装</text>
+				<view style="display: flex; align-items: center;">
+					<text class="title">维修安装</text>
+					<uni-icons type="checkbox-filled" size="20"></uni-icons>
+				</view>
 				<view class="info">居家烦恼，交给益鸟又快又省</view>
 			</view>
 		</view>
@@ -73,7 +107,7 @@
 	</view>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, reactive } from 'vue';
 import { GetDistance } from '../../utils';
 
@@ -137,15 +171,6 @@ const moreShop = () => {}
 		height: var(--status-bar-height);
 		width: 100%;
 	}
-	.v-enter-active,
-	.v-leave-active {
-	  transition: opacity 3s ease;
-	}
-	
-	.v-enter-from,
-	.v-leave-to {
-	  opacity: 0;
-	}
 	.video{
 		width: 100%;
 		height: 60vh;
@@ -184,6 +209,30 @@ const moreShop = () => {}
 			}
 		}
 	}
+	.floor2{
+		background-color: green;
+		margin: -30rpx 3% 60rpx;
+		padding: 30rpx 10rpx;
+		border-radius: 20rpx;
+		&-bg{
+			background-color: white;
+			border-radius: 10rpx;
+			padding: 30rpx;
+			display: grid;
+			gap: 40rpx;
+			color: darkgreen;
+			&-item{
+				display: flex;
+				align-items: center;
+				font-size: 24rpx;
+				&-title{
+					font-size: 38rpx;
+					margin: 0 20rpx 0 30rpx;
+					font-weight: bold;
+				}
+			}
+		}
+	}
 	.swiper {
 		height: 400rpx;
 		margin-bottom: 20rpx;
@@ -205,20 +254,21 @@ const moreShop = () => {}
 			border-radius: 20rpx;
 			display: flex;
 			align-items: center;
-			padding: 0 20rpx;
+			padding: 10rpx 20rpx;
 			font-size: 26rpx;
 			position: relative;
 			.en{
 				position: absolute;
 				text-transform: uppercase;
-				color: rgba(64, 224, 208, 0.3);
+				color: rgba(0, 100, 0, 0.1);
 				z-index: -1;
-				top: 16rpx;
+				top: 12rpx;
 				font-style: italic;
-			}
-			.title{
 				font-size: 40rpx;
 				font-weight: bold;
+			}
+			.title{
+				font-size: 36rpx;
 			}
 			.info{
 				margin-top: 16rpx;
@@ -226,7 +276,6 @@ const moreShop = () => {}
 			}
 		}
 	}
-	
 	.more{
 		display: flex;
 		justify-content: center;
