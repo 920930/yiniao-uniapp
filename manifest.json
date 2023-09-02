@@ -60,6 +60,7 @@
                 "desc" : "活动限制区域"
             }
         },
+				"lazyCodeLoading": "requiredComponents",
         "requiredPrivateInfos" : [ "getLocation", "chooseLocation" ]
     },
     "mp-alipay" : {
