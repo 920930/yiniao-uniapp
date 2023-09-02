@@ -11,9 +11,20 @@
 			<text @click="childCurrent = i" :class="['lb-item', childCurrent === i && 'lb-current']">{{item.title}}</text>
 		</template>
 	</view>
-	<view>
-		
-	</view>
+	<template v-for="item in 5" :key="item">
+		<navigator to='/pages/yuyue/yuyue' class="list">
+			<image src="http://img.sirfang.com/effect_img/2020/10/19/5509eb66f7ef894877bcbca384bc86b7.jpg" class="list-img" />
+			<view class="list-title">厨师服块状大师 | 8小时厨房急速翻新</view>
+			<view class="list-buttom">
+				<view class="list-buttom-left">
+					<uni-icons type="gear-filled" color="Grey" size="20" />
+					<text style="margin-left: 5rpx;">开工{{item}}户</text>
+				</view>
+				<view class="list-buttom-price">开工53户</view>
+			</view>
+		</navigator>
+	</template>
+	<view style="text-align: center; padding-bottom: 20rpx; font-size: 24rpx;">没有了</view>
 </template>
 
 <script lang="ts" setup>
@@ -62,6 +73,38 @@ const typeCurrentBtn = (index: number) => {
 		background-color: darkcyan;
 		padding: 2rpx 15rpx;
 		color: white;
+	}
+}
+.list{
+	margin: 10rpx 3% 40rpx;
+	padding-bottom: 20rpx;
+	background-color: white;
+	border-radius: 20rpx;
+	overflow: hidden;
+	box-sizing: border-box;
+	box-shadow: 0 5rpx 8rpx 4rpx rgba(0, 0, 0, 0.08);
+	&-img{
+		width: 100%;
+		margin-bottom: 20rpx;
+	}
+	&-title{
+		padding: 0 10rpx;
+	}
+	&-buttom{
+		display: flex;
+		justify-content: space-between;
+		margin-top: 14rpx;
+		font-size: 24rpx;
+		padding: 0 10rpx;
+		color: Grey;
+		&-left{
+			display: flex;
+			align-items: center;
+		}
+		&-price{
+			font-size: 30rpx;
+			color: red;
+		}
 	}
 }
 </style>
