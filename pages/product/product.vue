@@ -12,7 +12,7 @@
 		</template>
 	</view>
 	<template v-for="item in 5" :key="item">
-		<navigator to='/pages/yuyue/yuyue' class="list">
+		<navigator :url='`/pages/product/detail?id=${item}`' class="list">
 			<image src="http://img.sirfang.com/effect_img/2020/10/19/5509eb66f7ef894877bcbca384bc86b7.jpg" class="list-img" />
 			<view class="list-title">厨师服块状大师 | 8小时厨房急速翻新</view>
 			<view class="list-buttom">

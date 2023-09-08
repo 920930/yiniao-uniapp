@@ -27,8 +27,15 @@
 				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
 			}
-		}
-	],
+		},{
+				"path" : "pages/product/detail",
+				"style" :                                                                                    
+				{
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": false
+				}
+			}
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
