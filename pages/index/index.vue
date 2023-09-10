@@ -182,7 +182,7 @@ const moreShop = () => {}
 		width: 94%;
 		box-sizing: border-box;
 		top: -50rpx;
-		background-color: green;
+		background-color: $uni-bg-color-green;
 		color: white;
 		border-radius: 20rpx;
 		.lang{
@@ -210,7 +210,7 @@ const moreShop = () => {}
 		}
 	}
 	.floor2{
-		background-color: green;
+		background-color: $uni-bg-color-green;
 		margin: -30rpx 3% 60rpx;
 		padding: 30rpx 10rpx;
 		border-radius: 20rpx;
@@ -282,7 +282,7 @@ const moreShop = () => {}
 		.shop{
 			width: 260rpx;
 			height: 80rpx;
-			background-color: green;
+			background-color: $uni-bg-color-green;
 			line-height: 80rpx;
 			text-align: center;
 			color: white;

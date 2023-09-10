@@ -1,0 +1,33 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 4244964 */
+  src: url('iconfont.ttf') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-time:before {
+  content: "\e661";
+}
+
+.icon-yuyue:before {
+  content: "\e61a";
+}
+
+.icon-VIP:before {
+  content: "\e621";
+}
+
+.icon-chanpin:before {
+  content: "\e601";
+}
+
+.icon-house:before {
+  content: "\e620";
+}
+

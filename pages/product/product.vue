@@ -17,10 +17,14 @@
 			<view class="list-title">厨师服块状大师 | 8小时厨房急速翻新</view>
 			<view class="list-buttom">
 				<view class="list-buttom-left">
-					<uni-icons type="gear-filled" color="Grey" size="20" />
+					<uni-icons custom-prefix="iconfont" type="icon-time" size="15" />
 					<text style="margin-left: 5rpx;">开工{{item}}户</text>
 				</view>
-				<view class="list-buttom-price">开工53户</view>
+				<view class="list-buttom-price">
+					<text>￥</text>
+					<text class="list-buttom-price-bigger">2000</text>
+					<text class="list-buttom-price-type">/平方</text>
+				</view>
 			</view>
 		</navigator>
 	</template>
@@ -62,15 +66,15 @@ const typeCurrentBtn = (index: number) => {
 	flex-wrap: wrap;
 	margin: 20rpx 20rpx 0 0;
 	font-size: 28rpx;
-	color: rgba(0, 0, 0, 0.4);
+	color: $uni-bg-color-mask;
 	&-item{
-		background-color: rgba(0, 0, 0, 0.05);
+		background-color: $uni-bg-color-shadow;
 		border-radius: 20rpx;
 		margin: 0 0 20rpx 20rpx;
 		padding: 2rpx 16rpx;
 	}
 	&-current{
-		background-color: darkcyan;
+		background-color: $uni-bg-color-green;
 		padding: 2rpx 15rpx;
 		color: white;
 	}
@@ -96,14 +100,23 @@ const typeCurrentBtn = (index: number) => {
 		margin-top: 14rpx;
 		font-size: 24rpx;
 		padding: 0 10rpx;
-		color: Grey;
+		color: $uni-text-color-grey;
 		&-left{
 			display: flex;
 			align-items: center;
 		}
 		&-price{
-			font-size: 30rpx;
-			color: red;
+			font-size: 25rpx;
+			color: $uni-color-error;
+			&-bigger{
+				color: $uni-color-error;
+				font-size: 45rpx;
+				font-weight: bold;
+				margin-right: 10rpx;
+			}
+			&-type{
+				color: $uni-text-color-grey;
+			}
 		}
 	}
 }
