@@ -5,20 +5,20 @@
 		<view class="lang">真自营·不外包</view>
 		<view class="title" @click="openBtn"><text style="margin-right: 13rpx;">关于我们</text><icon type="success" size="16"/></view>
 		<view :class="['content', show && 'content-active']">
-			<text class="title">我们是谁</text>
-			<view class="item">
+			<view class="content-item">
+				<view class="content-item-title">我们是谁</view>
 				益鸟美居，创立于2016年3月，是全国自营连锁规模领先的房屋维修、翻新改造服务商，我们坚持独无二的“真自营不外包”经营模式，覆盖上海、深圳、成都、重庆、武汉、贵阳等城市，数十家自营连锁门店，自有专业工人超300+，已服务全国超10万用户。
 			</view>
-			<text class="title">我们的使命</text>
-			<view class="item">
+			<view class="content-item">
+				<view class="content-item-title">我们的使命</view>
 				以领先科技创造更安全、舒适、低碳的生活空间
 			</view>
-			<text class="title">我们的愿景</text>
-			<view class="item">
+			<view class="content-item">
+				<view class="content-item-title">我们的愿景</view>
 				成为亿万用户信赖的综合家居服务商
 			</view>
-			<text class="title">我们的价值观</text>
-			<view class="item">
+			<view class="content-item">
+				<view class="content-item-title">我们的价值观</view>
 				<text>用户第一 说到做到</text>
 				<view>拼搏进取开放分享</view>
 			</view>
@@ -199,20 +199,22 @@ const moreShop = () => {}
 			border-radius: 16rpx;
 			margin-top: 16rpx;
 			max-height: 0rpx;
-			transition: all 0.3s;
 			overflow: hidden;
-			.title{
-				font-weight: bold;
-				font-size: 40rpx;
-			}
-			.item{
+			transition: all 0.5s;
+			&-item{
 				color: rgba(0, 0, 0, .6);
-				margin: 15rpx 0 20rpx;
+				margin-top: 10px;
+				&-title{
+					font-weight: bold;
+					font-size: 40rpx;
+					margin-bottom: 5rpx;
+				}
 			}
 		}
 		.content-active{
 			max-height: 500rpx;
-			padding: 20rpx 20rpx 1rpx 20rpx;
+			overflow-y: auto;
+			padding: 0 20rpx 10rpx 20rpx;
 		}
 	}
 	.floor2{
