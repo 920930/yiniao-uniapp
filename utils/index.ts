@@ -10,3 +10,11 @@ export const GetDistance = (lat1: number, lng1: number, lat2: number, lng2: numb
 	s = Math.round(s * 10000) / 10000;// 输出为公里
 	return { m: s * 1000, km: Number(s.toFixed(2)) }
 }
+
+export const getDomRect = (str: string): Promise<any> => {
+	return new Promise((resolve) => {
+		uni.createSelectorQuery().select(str).boundingClientRect(data => {
+		  data && resolve(data)
+		}).exec();
+	})
+}

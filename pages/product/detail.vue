@@ -11,12 +11,12 @@
 			<text class="info-item">自家私服真负责</text>
 			<text class="info-item">3天送货，8小时装完</text>
 		</view>
-		<view class="price" @click="taocanBtn">
+		<view class="price" @click="taocan = !taocan">
 			￥<text class="price-red">6888</text>元/套
 			<text style="margin-left: 10rpx;">包含7项内容</text>
 			<uni-icons :type="taocan ? 'top' : 'bottom'" />
 		</view>
-		<view class="modal-more" v-if='taocan'>
+		<view :class="['modal-more', taocan && 'modal-active']">
 			<view class="modal-more-item">
 				<text>厨房快改大师-地砖</text>
 				<view class="modal-more-item-info">eo级颗粒板、DUO阻尼铰链、免拉手设计</view>
@@ -26,7 +26,19 @@
 				<view class="modal-more-item-info">eo级颗粒板、DUO阻尼铰链、免拉手设计</view>
 			</view>
 			<view class="modal-more-item">
-				<text>厨房快改大师-地砖123</text>
+				<text>厨房快改大师-地砖</text>
+				<view class="modal-more-item-info">eo级颗粒板、DUO阻尼铰链、免拉手设计</view>
+			</view>
+			<view class="modal-more-item">
+				<text>厨房快改大师-地砖</text>
+				<view class="modal-more-item-info">eo级颗粒板、DUO阻尼铰链、免拉手设计</view>
+			</view>
+			<view class="modal-more-item">
+				<text>厨房快改大师-地砖</text>
+				<view class="modal-more-item-info">eo级颗粒板、DUO阻尼铰链、免拉手设计</view>
+			</view>
+			<view class="modal-more-item">
+				<text>厨房快改大师-地砖</text>
 				<view class="modal-more-item-info">eo级颗粒板、DUO阻尼铰链、免拉手设计</view>
 			</view>
 		</view>
@@ -35,9 +47,17 @@
 	<view class="kx">
 		<text>可选配置</text>
 		<view class="kx-items">
-			<text class="kx-items-text">橱窗</text>
+			<text class="kx-items-text" v-for="item in data" :key="item.id">
+				{{item.title}}
+			</text>
 			<text class="kx-items-text kx-items-active">橱窗</text>
 		</view>
+		<checkbox-group>
+			<label v-for="item in data" :key="item.id">
+				<checkbox value="cb" checked="true" />
+				<text>{{item.title}}</text>
+			</label>
+		</checkbox-group>
 	</view>
 	
 	<view class="product">产品详情</view>
@@ -48,14 +68,10 @@
 </template>
 
 <script setup lang="ts">
-import { onLoad, onReady } from '@dcloudio/uni-app';
-import { ref, reactive } from 'vue';
+import { onLoad } from '@dcloudio/uni-app';
+import { ref } from 'vue';
 
 const taocan = ref(false);
-const modelHeight = reactive({
-	start: 0,
-	minix: 0,
-});
 
 const data = ref([
 	{ id: 1, title: '房屋维修', children: [
@@ -78,26 +94,6 @@ onLoad((opt) => {
 	console.log(opt)
 })
 
-onReady(async () => {
-	const data = await getDom();
-	modelHeight.start = data.height;
-})
-
-const taocanBtn = () => {
-	Promise
-		.resolve()
-		.then(() => taocan.value = !taocan.value)
-		.then(async () => modelHeight.minix = await getDom('.modal-more'))
-}
-
-const getDom = (str = '.modal'): Promise<any> => {
-	return new Promise((resolve) => {
-		uni.createSelectorQuery().select(str).boundingClientRect(data => {
-		  data && resolve(data)
-		}).exec();
-	})
-}
-
 </script>
 
 <style lang="scss" scoped>
@@ -115,7 +111,12 @@ const getDom = (str = '.modal'): Promise<any> => {
 	border-radius: 16rpx;
 	padding: 20rpx;
 	&-more{
+		transition: all 0.3s;
 		overflow: hidden;
+		max-height: 0rpx;
+		&-grid{
+			min-height: 0;
+		}
 		&-item{
 			margin-top: 15rpx;
 			font-size: $uni-font-size-base;
@@ -125,6 +126,10 @@ const getDom = (str = '.modal'): Promise<any> => {
 				font-size: $uni-font-size-sm;
 			}
 		}
+	}
+	&-active{
+		max-height: 500rpx;
+		overflow-y: auto;
 	}
 }
 
