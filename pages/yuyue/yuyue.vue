@@ -1,6 +1,6 @@
 <template>
 	<view class="top">
-		<uni-icons type="shop" size="130" color="green" class="top-icon" />
+		<uni-icons type="shop" size="130" color="#007B45" class="top-icon" />
 		<view class="top-bm">
 			<view class="top-bm-title">10秒预约免费上门评估</view>
 			<text>提供免费的上门问题诊断、户型评估分析服务</text>
@@ -25,7 +25,7 @@
 	}
 	&-bm{
 		position: absolute;
-		bottom: 0;
+		bottom: 20rpx;
 		padding: 10rpx 3%;
 		opacity: 0.9;
 		&-title{
