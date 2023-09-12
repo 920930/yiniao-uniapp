@@ -15,22 +15,19 @@
 			}
 		},{
 			"path" : "pages/yuyue/yuyue",
-			"style" :                                                                                    
-			{
-				"navigationBarTitleText": "",
+			"style": {
+				"navigationBarTitleText": "预约上门",
 				"enablePullDownRefresh": false
 			}
 		},{
 			"path" : "pages/me/me",
-			"style" :                                                                                    
-			{
+			"style": {
 				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
 			}
 		},{
 				"path" : "pages/product/detail",
-				"style" :                                                                                    
-				{
+				"style": {
 					"navigationBarTitleText": "",
 					"enablePullDownRefresh": false
 				}

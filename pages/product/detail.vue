@@ -47,17 +47,19 @@
 	<view class="kx">
 		<text>可选配置</text>
 		<view class="kx-items">
-			<text class="kx-items-text" v-for="item in data" :key="item.id">
+			<text
+				:class="['kx-items-text', {'kx-items-active': kxActive.ids.has(item.id)}]"
+				v-for="item in data"
+				:key="item.id"
+				@click="kexuanFn(item.id)"
+			>
 				{{item.title}}
 			</text>
-			<text class="kx-items-text kx-items-active">橱窗</text>
 		</view>
-		<checkbox-group>
-			<label v-for="item in data" :key="item.id">
-				<checkbox value="cb" checked="true" />
-				<text>{{item.title}}</text>
-			</label>
-		</checkbox-group>
+		<template v-if="kxActive.ids.size">
+			<view v-for="item in kxActive.item" :key="item.id" class="kx-show">{{item.title}}</view>
+			<text class="kx-show" style="color: rgba(0, 0, 0, 0.5);">注意：具体价格根据现场测量及方案，设计而定</text>
+		</template>
 	</view>
 	
 	<view class="product">产品详情</view>
@@ -65,12 +67,14 @@
 	<image src="../../static/2.jpg" mode="widthFix" class="w-img" />
 	<image src="../../static/3.jpg" mode="widthFix" class="w-img" />
 	<image src="../../static/4.jpg" mode="widthFix" class="w-img" />
+	<view class="yuyue" @click="yuyueBtn">预约上门量房</view>
 </template>
 
 <script setup lang="ts">
 import { onLoad } from '@dcloudio/uni-app';
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
 
+const id = ref('0');
 const taocan = ref(false);
 
 const data = ref([
@@ -90,10 +94,28 @@ const data = ref([
 	]},
 ])
 
-onLoad((opt) => {
-	console.log(opt)
-})
 
+onLoad((opt) => id.value = opt.id)
+
+const kxActive = reactive<{ids: Set<number>, item: {id: number; title: string}[] | null}>({
+	ids: new Set(),
+	item: null
+})
+const kexuanFn = (id: number) => {
+	kxActive.ids.has(id) ? kxActive.ids.delete(id) : kxActive.ids.add(id);
+	if(kxActive.ids.size) {
+		const id = [...kxActive.ids][kxActive.ids.size - 1];
+		kxActive.item = data.value.find(item => item.id === id).children
+	}else{
+		kxActive.item = null
+	}
+}
+
+const yuyueBtn = () => {
+	uni.switchTab({
+		url: `/pages/yuyue/yuyue?id=${id}`
+	})
+}
 </script>
 
 <style lang="scss" scoped>
@@ -185,6 +207,10 @@ onLoad((opt) => {
 			border-color: $uni-bg-color-green;
 		}
 	}
+	&-show{
+		font-size: $uni-font-size-base;
+		padding: 5rpx 20rpx;
+	}
 }
 
 .product{
@@ -194,5 +220,22 @@ onLoad((opt) => {
 	display: inline-block;
 	padding-bottom: 8rpx;
 	font-weight: bold;
+}
+.yyh{
+	height: 80rpx;
+}
+.yuyue{
+	height: 80rpx;
+	background-color: $uni-bg-color-green;
+	color: white;
+	position: fixed;
+	bottom: 1%;
+	left: 10%;
+	right: 10%;
+	text-align: center;
+	line-height: 80rpx;
+	box-shadow: 0 0 6rpx 5rpx rgba(0, 0, 0, 0.1);
+	z-index: 100;
+	border-radius: 50rpx;
 }
 </style>
