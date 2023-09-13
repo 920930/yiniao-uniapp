@@ -51,7 +51,7 @@
 				:class="['kx-items-text', {'kx-items-active': kxActive.ids.has(item.id)}]"
 				v-for="item in data"
 				:key="item.id"
-				@click="kexuanFn(item.id)"
+				@tap="kexuanFn(item.id)"
 			>
 				{{item.title}}
 			</text>
@@ -67,7 +67,7 @@
 	<image src="../../static/2.jpg" mode="widthFix" class="w-img" />
 	<image src="../../static/3.jpg" mode="widthFix" class="w-img" />
 	<image src="../../static/4.jpg" mode="widthFix" class="w-img" />
-	<view class="yuyue" @click="yuyueBtn">预约上门量房</view>
+	<view class="yuyue" @tap="yuyueBtn">预约上门量房</view>
 </template>
 
 <script setup lang="ts">

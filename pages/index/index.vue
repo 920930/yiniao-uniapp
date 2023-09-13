@@ -3,7 +3,7 @@
 	<video object-fit='cover' :controls="false" autoplay loop muted src="https://www.zcfsjt.com/static/v.m4v" class="video" />
 	<view class="about">
 		<view class="lang">真自营·不外包</view>
-		<view class="title" @click="openBtn"><text style="margin-right: 13rpx;">关于我们</text><icon type="success" size="16"/></view>
+		<view class="title" @tap="openBtn"><text style="margin-right: 13rpx;">关于我们</text><icon type="success" size="16"/></view>
 		<view :class="['content', show && 'content-active']">
 			<view class="content-item">
 				<view class="content-item-title">我们是谁</view>
