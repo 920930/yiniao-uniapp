@@ -162,12 +162,11 @@ const yuyueBtn = () => {
 	font-size: 36rpx;
 }
 .info{
-	margin: 15rpx 0 0 -10rpx;
 	display: flex;
 	flex-wrap: wrap;
+	gap: 15rpx;
+	margin: 15rpx 0;
 	&-item{
-		margin-left: 20rpx;
-		margin-bottom: 15rpx;
 		background-color: #F8ECE4;
 		color: #E69D6F;
 		padding: 4rpx 15rpx;
@@ -190,12 +189,10 @@ const yuyueBtn = () => {
 	&-items{
 		display: flex;
 		flex-wrap: wrap;
-		margin-left: -20rpx;
-		margin-top: 20rpx;
+		gap: 15rpx;
 		color: $uni-text-color-grey;
+		margin-top: 15rpx;
 		&-text{
-			margin-left: 20rpx;
-			margin-bottom: 15rpx;
 			background-color: white;
 			box-shadow: 0 0 8px 4rpx $uni-bg-color-shadow;
 			border-radius: $uni-border-radius-lg;
