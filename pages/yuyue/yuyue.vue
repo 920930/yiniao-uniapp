@@ -40,25 +40,39 @@
 					<input name="address" v-model="form.address" placeholder="请选择服务地址" disabled @tap="chooseMapBtn" class="card-form-item-center" />
 					<uni-icons type="right" />
 				</view>
-				<input name="xiaoqu" v-model="form.xiaoqu" style="transform: scale(0);">
 				<view class="card-form-item">
 					<label class="card-form-item-label">门牌号</label>
-					<input name="dong" class="card-form-item-border">
-					<text>栋</text>
-					<input name="danyuan" class="card-form-item-border">
-					<text>单元</text>
-					<input name="hao" class="card-form-item-border">
-					<text>号</text>
+					<view class="card-form-item-flex">
+						<input name="dong" class="card-form-item-border">
+						<text>栋</text>
+						<input name="danyuan" class="card-form-item-border">
+						<text>单元</text>
+						<input name="hao" class="card-form-item-border">
+						<text>号</text>
+					</view>
 				</view>
 				<view class="card-form-item">
 					<label class="card-form-item-label">上门时间</label>
-					<radio-group name="time" class="card-form-item-flex">
-						<label><radio value="0" /><text>立即</text></label>
+					<radio-group name="time" @change="timeChange" class="card-form-item-flex">
+						<view class="card-form-item-flex-info" :class="{'card-form-item-flex-active': form.time.includes('0')}">
+							<radio value="0" class="card-form-item-flex-info-radio" :checked="form.time.includes('0')" />
+							<text class="card-form-item-flex-info-text">立即</text>
+						</view>
+						<view class="card-form-item-flex-info" :class="{'card-form-item-flex-active': form.time.includes('3')}">
+							<radio value="3" class="card-form-item-flex-info-radio" :checked="form.time.includes('3')" />
+							<text class="card-form-item-flex-info-text">三天内</text>
+						</view>
+						<view class="card-form-item-flex-info" :class="{'card-form-item-flex-active': form.time.includes('7')}">
+							<radio value="7" class="card-form-item-flex-info-radio" :checked="form.time.includes('7')" />
+							<text class="card-form-item-flex-info-text">七天内</text>
+						</view>
+						<!-- <label><radio value="0" /><text>立即</text></label>
 						<label><radio value="3" /><text>三天内</text></label>
-						<label><radio value="7" /><text>七天内</text></label>
+						<label><radio value="7" /><text>七天内</text></label> -->
 					</radio-group>
 				</view>
 			</view>
+			<input name="xiaoqu" v-model="form.xiaoqu" style="display: none;">
 			<button form-type="submit" class="card-form-btn">立即预约</button>
 		</view>
 	</form>
@@ -71,16 +85,13 @@ const form = reactive({
 	type: 't1',
 	address: '',
 	xiaoqu: '',
+	time: '3'
 })
 const chooseMapBtn = () => {
 	uni.chooseLocation({
 		success: function (res) {
 			form.address = res.address;
 			form.xiaoqu = res.name;
-			console.log('位置名称：' + res.name);
-			console.log('详细地址：' + res.address);
-			console.log('纬度：' + res.latitude);
-			console.log('经度：' + res.longitude);
 		}
 	});
 }
@@ -91,6 +102,7 @@ const formSubmit = (e) => {
 const formReset = () => {}
 
 const typeChange = (evt) => form.type = evt.detail.value;
+const timeChange = (evt) => form.time = evt.detail.value;
 </script>
 
 <style lang="scss" scoped>
@@ -168,8 +180,31 @@ const typeChange = (evt) => form.type = evt.detail.value;
 				flex: 1;
 				display: flex;
 				justify-content: flex-end;
-				gap: 30rpx;
-				transform: scale(0.8);
+				gap: 20rpx;
+				&-info{
+					position: relative;
+					background-color: $uni-bg-color-shadow;
+					border-radius: 10rpx;
+					text-align: center;
+					font-size: $uni-font-size-sm;
+					padding: 6rpx 2rpx;
+					color: $uni-text-color;
+					&-text{
+						display: inline-block;
+						width: 130rpx;
+					}
+					&-radio{
+						opacity: 0;
+						position: absolute;
+						z-index: 100;
+						width: 100%;
+						height: 100%;
+					}
+				}
+				&-active{
+					background-color: $uni-bg-color-green;
+					color: white;
+				}
 			}
 			&-border{
 				border-bottom: 1rpx solid rgba(0, 0, 0, 0.05);
@@ -181,8 +216,8 @@ const typeChange = (evt) => form.type = evt.detail.value;
 			background-color: $uni-bg-color-green;
 			outline: none;
 			color: white;
-			font-size: 28rpx;
-			margin: 20rpx;
+			font-size: 32rpx;
+			margin: 30rpx 20rpx 0;
 			border-radius: 50rpx;
 		}
 	}
