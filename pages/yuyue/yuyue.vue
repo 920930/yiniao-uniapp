@@ -9,6 +9,23 @@
 	<form @submit="formSubmit" @reset="formReset">
 		<view class="card">
 			<view class="card-title">第一步: 选择您需要的服务</view>
+			<view class="card-good">
+				<image mode="center" class="card-good-img" src="http://img.sirfang.com/effect_img/2020/10/19/5509eb66f7ef894877bcbca384bc86b7.jpg" />
+				<view class="card-good-info">
+					<text class="card-good-info-title">厨房快改大师 | 8小时厨房极速翻新极速翻新</text>
+					<view class="card-good-info-list">
+						<text class="card-good-info-list-item">低噪微尘不搬家</text>
+						<text class="card-good-info-list-item">品质环保零担忧</text>
+						<text class="card-good-info-list-item">自家私服真负责</text>
+						<text class="card-good-info-list-item">3天送货，8小时装完</text>
+						<text class="card-good-info-list-item">3天送货，8小时装完</text>
+					</view>
+				</view>
+			</view>
+			<view class="card-price">
+				<text>预计金额：</text>
+				<text class="card-price-pay">￥6899</text>
+			</view>
 			<radio-group name='type' class="card-grid" @change="typeChange">
 				<view :class="['card-grid-item', form.type.includes('t1') && 'card-grid-active']">
 					<text>局部改造</text>
@@ -56,15 +73,15 @@
 					<radio-group name="time" @change="timeChange" class="card-form-item-flex">
 						<view class="card-form-item-flex-info" :class="{'card-form-item-flex-active': form.time.includes('0')}">
 							<radio value="0" class="card-form-item-flex-info-radio" :checked="form.time.includes('0')" />
-							<text class="card-form-item-flex-info-text">立即</text>
+							<text>立即</text>
 						</view>
 						<view class="card-form-item-flex-info" :class="{'card-form-item-flex-active': form.time.includes('3')}">
 							<radio value="3" class="card-form-item-flex-info-radio" :checked="form.time.includes('3')" />
-							<text class="card-form-item-flex-info-text">三天内</text>
+							<text>三天内</text>
 						</view>
 						<view class="card-form-item-flex-info" :class="{'card-form-item-flex-active': form.time.includes('7')}">
 							<radio value="7" class="card-form-item-flex-info-radio" :checked="form.time.includes('7')" />
-							<text class="card-form-item-flex-info-text">七天内</text>
+							<text>七天内</text>
 						</view>
 						<!-- <label><radio value="0" /><text>立即</text></label>
 						<label><radio value="3" /><text>三天内</text></label>
@@ -80,13 +97,16 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue';
+import { onLoad } from '@dcloudio/uni-app';
+import { reactive, ref } from 'vue';
+const id = ref<string | null>(null);
 const form = reactive({
 	type: 't1',
 	address: '',
 	xiaoqu: '',
 	time: '3'
 })
+onLoad((opt) => id.value = opt.id)
 const chooseMapBtn = () => {
 	uni.chooseLocation({
 		success: function (res) {
@@ -129,13 +149,58 @@ const timeChange = (evt) => form.time = evt.detail.value;
 	}
 }
 .card{
-	margin: 20rpx 3%;
+	margin: 20rpx 30rpx;
 	&-title{
 		border-left: 10rpx solid $uni-bg-color-green;
 		color: $uni-bg-color-green;
 		padding-left: 10rpx;
 		font-weight: bold;
 		font-size: 34rpx;
+	}
+	&-good{
+		display: flex;
+		margin-top: 30rpx;
+		gap: 30rpx;
+		&-img{
+			flex: 1;
+			height: 200rpx;
+			border-radius: 10rpx;
+		}
+		&-info{
+			width: 460rpx;
+			&-title{
+				display: block;
+				width: 460rpx;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow:ellipsis;
+			}
+			&-list{
+				display: flex;
+				flex-wrap: wrap;
+				font-size: $uni-font-size-sm;
+				gap: 15rpx;
+				margin-top: 20rpx;
+				&-item{
+					background-color: #D1E7DE;
+					color: $uni-bg-color-green;
+					border-radius: 20rpx;
+					padding: 4rpx 15rpx;
+				}
+			}
+		}
+	}
+	&-price{
+		text-align: right;
+		margin-top: 30rpx;
+		padding-top: 10rpx;
+		border-top: 1rpx dashed rgba(0, 0, 0, 0.05);
+		color: $uni-text-color;
+		&-pay{
+			font-weight: bold;
+			color: $uni-color-error;
+			font-size: 40rpx;
+		}
 	}
 	&-grid{
 		display: grid;
@@ -170,7 +235,7 @@ const timeChange = (evt) => form.time = evt.detail.value;
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
-			margin-top: 35rpx;
+			margin-top: 40rpx;
 			&-center{
 				margin-left: 20rpx;
 				flex: 1;
@@ -186,13 +251,10 @@ const timeChange = (evt) => form.time = evt.detail.value;
 					background-color: $uni-bg-color-shadow;
 					border-radius: 10rpx;
 					text-align: center;
-					font-size: $uni-font-size-sm;
-					padding: 6rpx 2rpx;
+					font-size: $uni-font-size-base;
+					padding: 8rpx 0;
 					color: $uni-text-color;
-					&-text{
-						display: inline-block;
-						width: 130rpx;
-					}
+					width: 130rpx;
 					&-radio{
 						opacity: 0;
 						position: absolute;
@@ -217,7 +279,7 @@ const timeChange = (evt) => form.time = evt.detail.value;
 			outline: none;
 			color: white;
 			font-size: 32rpx;
-			margin: 30rpx 20rpx 0;
+			margin: 50rpx 20rpx 0;
 			border-radius: 50rpx;
 		}
 	}
