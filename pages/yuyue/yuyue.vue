@@ -9,24 +9,26 @@
 	<form @submit="formSubmit" @reset="formReset">
 		<view class="card">
 			<view class="card-title">第一步: 选择您需要的服务</view>
-			<view class="card-good">
-				<image mode="center" class="card-good-img" src="http://img.sirfang.com/effect_img/2020/10/19/5509eb66f7ef894877bcbca384bc86b7.jpg" />
-				<view class="card-good-info">
-					<text class="card-good-info-title">厨房快改大师 | 8小时厨房极速翻新极速翻新</text>
-					<view class="card-good-info-list">
-						<text class="card-good-info-list-item">低噪微尘不搬家</text>
-						<text class="card-good-info-list-item">品质环保零担忧</text>
-						<text class="card-good-info-list-item">自家私服真负责</text>
-						<text class="card-good-info-list-item">3天送货，8小时装完</text>
-						<text class="card-good-info-list-item">3天送货，8小时装完</text>
+			<template v-if="goodStore.id">
+				<view class="card-good">
+					<image mode="center" class="card-good-img" src="http://img.sirfang.com/effect_img/2020/10/19/5509eb66f7ef894877bcbca384bc86b7.jpg" />
+					<view class="card-good-info">
+						<text class="card-good-info-title">厨房快改大师 | 8小时厨房极速翻新极速翻新</text>
+						<view class="card-good-info-list">
+							<text class="card-good-info-list-item">低噪微尘不搬家</text>
+							<text class="card-good-info-list-item">品质环保零担忧</text>
+							<text class="card-good-info-list-item">自家私服真负责</text>
+							<text class="card-good-info-list-item">3天送货，8小时装完</text>
+							<text class="card-good-info-list-item">3天送货，8小时装完</text>
+						</view>
 					</view>
 				</view>
-			</view>
-			<view class="card-price">
-				<text>预计金额：</text>
-				<text class="card-price-pay">￥6899</text>
-			</view>
-			<radio-group name='type' class="card-grid" @change="typeChange">
+				<view class="card-price">
+					<text>预计金额：</text>
+					<text class="card-price-pay">￥6899</text>
+				</view>
+			</template>
+			<radio-group name='type' class="card-grid" @change="typeChange" v-else>
 				<view :class="['card-grid-item', form.type.includes('t1') && 'card-grid-active']">
 					<text>局部改造</text>
 					<uni-icons type="contact" size="40" color="#007B45" />
@@ -90,23 +92,29 @@
 				</view>
 			</view>
 			<input name="xiaoqu" v-model="form.xiaoqu" style="display: none;">
-			<button form-type="submit" class="card-form-btn">立即预约</button>
+			<view class="card-form-btn">
+				<button form-type="reset" class="card-form-btn-reset">重置</button>
+				<button form-type="submit" class="card-form-btn-submit">立即预约</button>
+			</view>
 		</view>
 	</form>
 	<view style="height: 10rpx;"></view>
 </template>
 
 <script lang="ts" setup>
-import { onLoad } from '@dcloudio/uni-app';
-import { reactive, ref } from 'vue';
-const id = ref<string | null>(null);
+// import { onHide } from '@dcloudio/uni-app';
+import { reactive } from 'vue';
+import { useGoodStore } from '../../store/good';
+import { Debounce } from '../../utils'
+const goodStore = useGoodStore();
+
 const form = reactive({
 	type: 't1',
 	address: '',
 	xiaoqu: '',
 	time: '3'
 })
-onLoad((opt) => id.value = opt.id)
+
 const chooseMapBtn = () => {
 	uni.chooseLocation({
 		success: function (res) {
@@ -115,11 +123,15 @@ const chooseMapBtn = () => {
 		}
 	});
 }
-const formSubmit = (e) => {
-	console.log(e.detail.value)
-	
-}
-const formReset = () => {}
+const formSubmit = Debounce((e: any) => {
+		const ret = {...e.detail.value}
+		if(goodStore.id){
+			ret['id'] = goodStore.id;
+			ret['more'] = goodStore.more;
+		}
+		console.log(ret)
+	})
+const formReset = () => goodStore.$reset();
 
 const typeChange = (evt) => form.type = evt.detail.value;
 const timeChange = (evt) => form.time = evt.detail.value;
@@ -275,12 +287,25 @@ const timeChange = (evt) => form.time = evt.detail.value;
 			}
 		}
 		&-btn{
-			background-color: $uni-bg-color-green;
-			outline: none;
-			color: white;
-			font-size: 32rpx;
-			margin: 50rpx 20rpx 0;
-			border-radius: 50rpx;
+			display: flex;
+			gap: 20rpx;
+			margin-top: 50rpx;
+			&-reset{
+				outline: none;
+				color: white;
+				font-size: 32rpx;
+				border-radius: 50rpx;
+				background-color: $uni-color-warning;
+				width: 30%;
+			}
+			&-submit{
+				background-color: $uni-bg-color-green;
+				outline: none;
+				color: white;
+				font-size: 32rpx;
+				border-radius: 50rpx;
+				flex: 1;
+			}
 		}
 	}
 }

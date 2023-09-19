@@ -10,11 +10,21 @@ export const GetDistance = (lat1: number, lng1: number, lat2: number, lng2: numb
 	s = Math.round(s * 10000) / 10000;// 输出为公里
 	return { m: s * 1000, km: Number(s.toFixed(2)) }
 }
-
+// 获取dom数据
 export const getDomRect = (str: string): Promise<any> => {
 	return new Promise((resolve) => {
 		uni.createSelectorQuery().select(str).boundingClientRect(data => {
 		  data && resolve(data)
 		}).exec();
 	})
+}
+// 防抖函数
+export const Debounce = (fn: any, delay = 600) => {
+	let timer = null;
+	return (e: any) => {
+		if(timer) clearTimeout(timer)
+		timer = setTimeout(() => {
+			fn(e)
+		}, delay)
+	}
 }

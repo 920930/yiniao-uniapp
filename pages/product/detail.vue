@@ -71,10 +71,11 @@
 </template>
 
 <script setup lang="ts">
-import { onLoad } from '@dcloudio/uni-app';
+// import { onLoad } from '@dcloudio/uni-app';
 import { reactive, ref } from 'vue';
+import { useGoodStore } from '../../store/good'
 
-const id = ref('0');
+const goodStore = useGoodStore();
 const taocan = ref(false);
 
 const data = ref([
@@ -94,9 +95,6 @@ const data = ref([
 	]},
 ])
 
-
-onLoad((opt) => id.value = opt.id)
-
 const kxActive = reactive<{ids: Set<number>, item: {id: number; title: string}[] | null}>({
 	ids: new Set(),
 	item: null
@@ -112,8 +110,10 @@ const kexuanFn = (id: number) => {
 }
 
 const yuyueBtn = () => {
+	// goodStore.$patch({id: 1, more: ['1']});
+	goodStore.setGood({id: 1, more: [...kxActive.ids]})
 	uni.switchTab({
-		url: `/pages/yuyue/yuyue?id=${id}`
+		url: `/pages/yuyue/yuyue`
 	})
 }
 </script>
