@@ -98,16 +98,21 @@
 			</view>
 		</view>
 	</form>
+	<uni-popup ref="popup" type="bottom">
+		<view class="popup">
+			底部弹出 Popup
+		</view>
+	</uni-popup>
 	<view style="height: 10rpx;"></view>
 </template>
 
 <script lang="ts" setup>
 // import { onHide } from '@dcloudio/uni-app';
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import { useGoodStore } from '../../store/good';
 import { Debounce } from '../../utils'
 const goodStore = useGoodStore();
-
+const popup = ref();
 const form = reactive({
 	type: 't1',
 	address: '',
@@ -129,6 +134,7 @@ const formSubmit = Debounce((e: any) => {
 			ret['id'] = goodStore.id;
 			ret['more'] = goodStore.more;
 		}
+		popup.value.open('bottom')
 		console.log(ret)
 	})
 const formReset = () => goodStore.$reset();
@@ -232,7 +238,7 @@ const timeChange = (evt) => form.time = evt.detail.value;
 			transition: 0.5s;
 			&-radio{
 				position: absolute;
-				z-index: 200;
+				z-index: 1;
 				width: 100%;
 				height: 100%;
 				opacity: 0;
@@ -308,5 +314,12 @@ const timeChange = (evt) => form.time = evt.detail.value;
 			}
 		}
 	}
+}
+.popup{
+	height: 50vh;
+	background-color: white;
+	border-radius: 30rpx 30rpx 0 0;
+	padding: 20rpx;
+	box-sizing: border-box;
 }
 </style>
