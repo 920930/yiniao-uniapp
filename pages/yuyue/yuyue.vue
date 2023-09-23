@@ -60,6 +60,19 @@
 					<uni-icons type="right" />
 				</view>
 				<view class="card-form-item">
+					<label class="card-form-item-label">姓名</label>
+					<input name="name" v-model="form.name" placeholder="请选择服务地址" class="card-form-item-center" />
+					<radio-group>
+						<label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in items" :key="item.value">
+							<view>
+								<radio :value="item.value" :checked="index === current" />
+							</view>
+							<view>{{item.name}}</view>
+						</label>
+					</radio-group>
+					<uni-icons type="right" />
+				</view>
+				<view class="card-form-item">
 					<label class="card-form-item-label">门牌号</label>
 					<view class="card-form-item-flex">
 						<input name="dong" class="card-form-item-border">
@@ -115,6 +128,8 @@ const goodStore = useGoodStore();
 const popup = ref();
 const form = reactive({
 	type: 't1',
+	name: '',
+	sex: 0,
 	address: '',
 	xiaoqu: '',
 	time: '3'
