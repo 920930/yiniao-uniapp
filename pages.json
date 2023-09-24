@@ -28,7 +28,7 @@
 		},{
 			"path" : "pages/me/me",
 			"style": {
-				"navigationBarTitleText": "",
+				"navigationBarTitleText": "会员中心",
 				"enablePullDownRefresh": false
 			}
 		},{
