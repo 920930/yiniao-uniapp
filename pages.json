@@ -20,6 +20,12 @@
 				"enablePullDownRefresh": false
 			}
 		},{
+			"path" : "pages/yuyue/suc",
+			"style": {
+				"navigationBarTitleText": "预约成功",
+				"enablePullDownRefresh": false
+			}
+		},{
 			"path" : "pages/me/me",
 			"style": {
 				"navigationBarTitleText": "",

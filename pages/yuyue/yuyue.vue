@@ -55,31 +55,34 @@
 			<view class="card-title">第二步: 填写您的信息，以便免费为您上门</view>
 			<view class="card-form">
 				<view class="card-form-item">
+					<label class="card-form-item-label">姓名</label>
+					<view class="card-form-item-flex">
+						<input name="name" v-model="form.name" placeholder="您的称呼" class="card-form-item-center" />
+						<radio-group name='sex' class="card-form-item-flex-space">
+							<radio :value="0" :checked="userStore.info.sex === 0">先生</radio>
+							<radio :value="1" :checked="userStore.info.sex === 1">女士</radio>
+						</radio-group>
+					</view>
+				</view>
+				<view class="card-form-item">
+					<label class="card-form-item-label">手机号</label>
+					<view class="card-form-item-flex">
+						<input name="name" v-model="form.phone" placeholder="您的手机号" class="card-form-item-center" />
+					</view>
+				</view>
+				<view class="card-form-item">
 					<label class="card-form-item-label">服务地址</label>
 					<input name="address" v-model="form.address" placeholder="请选择服务地址" disabled @tap="chooseMapBtn" class="card-form-item-center" />
 					<uni-icons type="right" />
 				</view>
 				<view class="card-form-item">
-					<label class="card-form-item-label">姓名</label>
-					<input name="name" v-model="form.name" placeholder="请选择服务地址" class="card-form-item-center" />
-					<radio-group>
-						<label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in items" :key="item.value">
-							<view>
-								<radio :value="item.value" :checked="index === current" />
-							</view>
-							<view>{{item.name}}</view>
-						</label>
-					</radio-group>
-					<uni-icons type="right" />
-				</view>
-				<view class="card-form-item">
 					<label class="card-form-item-label">门牌号</label>
 					<view class="card-form-item-flex">
-						<input name="dong" class="card-form-item-border">
+						<input name="dong" class="card-form-item-flex-inp" />
 						<text>栋</text>
-						<input name="danyuan" class="card-form-item-border">
+						<input name="danyuan" class="card-form-item-flex-inp" />
 						<text>单元</text>
-						<input name="hao" class="card-form-item-border">
+						<input name="hao" class="card-form-item-flex-inp" />
 						<text>号</text>
 					</view>
 				</view>
@@ -111,11 +114,6 @@
 			</view>
 		</view>
 	</form>
-	<uni-popup ref="popup" type="bottom">
-		<view class="popup">
-			底部弹出 Popup
-		</view>
-	</uni-popup>
 	<view style="height: 10rpx;"></view>
 </template>
 
@@ -123,13 +121,18 @@
 // import { onHide } from '@dcloudio/uni-app';
 import { reactive, ref } from 'vue';
 import { useGoodStore } from '../../store/good';
-import { Debounce } from '../../utils'
+import { useUserStore } from '../../store/user';
+import { Debounce } from '../../utils';
+import { http } from '../../utils/http';
+
 const goodStore = useGoodStore();
-const popup = ref();
+const userStore = useUserStore();
+
 const form = reactive({
 	type: 't1',
-	name: '',
-	sex: 0,
+	name: userStore.info.name,
+	sex: userStore.info.sex,
+	phone: userStore.info.phone,
 	address: '',
 	xiaoqu: '',
 	time: '3'
@@ -146,11 +149,19 @@ const chooseMapBtn = () => {
 const formSubmit = Debounce((e: any) => {
 		const ret = {...e.detail.value}
 		if(goodStore.id){
-			ret['id'] = goodStore.id;
-			ret['more'] = goodStore.more;
+			ret['goodId'] = goodStore.id;
+			ret['goodMore'] = goodStore.more;
 		}
-		popup.value.open('bottom')
+		ret['id'] = userStore.info.id;
 		console.log(ret)
+		http('/post', 'POST', ret)
+			.then(e => console.log(e))
+			.catch(err => console.log(err))
+			.finally(() => {
+				uni.navigateTo({
+					url: '/pages/yuyue/suc'
+				})
+			})
 	})
 const formReset = () => goodStore.$reset();
 
@@ -269,8 +280,16 @@ const timeChange = (evt) => form.time = evt.detail.value;
 			align-items: center;
 			justify-content: space-between;
 			margin-top: 40rpx;
+			&-label{
+				width: 140rpx;
+				background-color: $uni-bg-color-shadow;
+				text-align: center;
+				margin-right: 25rpx;
+				color: $uni-text-color;
+				padding: 6rpx 0;
+				font-size: $uni-font-size-base;
+			}
 			&-center{
-				margin-left: 20rpx;
 				flex: 1;
 				border-bottom: 1rpx solid rgba(0, 0, 0, 0.05);
 			}
@@ -279,6 +298,12 @@ const timeChange = (evt) => form.time = evt.detail.value;
 				display: flex;
 				justify-content: flex-end;
 				gap: 20rpx;
+				&-inp{
+					border-bottom: 1rpx solid rgba(0, 0, 0, 0.05);
+					text-align: center;
+					flex: 1;
+					min-width: 0;
+				}
 				&-info{
 					position: relative;
 					background-color: $uni-bg-color-shadow;
@@ -300,11 +325,10 @@ const timeChange = (evt) => form.time = evt.detail.value;
 					background-color: $uni-bg-color-green;
 					color: white;
 				}
-			}
-			&-border{
-				border-bottom: 1rpx solid rgba(0, 0, 0, 0.05);
-				width: 90rpx;
-				text-align: center;
+				&-space{
+					display: flex;
+					gap: 20rpx;
+				}
 			}
 		}
 		&-btn{
@@ -329,12 +353,5 @@ const timeChange = (evt) => form.time = evt.detail.value;
 			}
 		}
 	}
-}
-.popup{
-	height: 50vh;
-	background-color: white;
-	border-radius: 30rpx 30rpx 0 0;
-	padding: 20rpx;
-	box-sizing: border-box;
 }
 </style>
