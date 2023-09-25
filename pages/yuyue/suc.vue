@@ -4,12 +4,17 @@
 	<view class="back">
 		<uni-icons type="checkbox-filled" size="100" color="#007B45" />
 	</view>
-	<view class="back" @tap="uni.navigateBack()">
+	<view class="back" @tap="backBtn">
 		<text class="back-text">完成</text>
 	</view>
 	<view class="text">预约时间：2023-09-21 17:31</view>
 </template>
 
+<script setup lang="ts">
+	const backBtn = () => {
+		uni.navigateBack()
+	}
+</script>
 <style lang="scss" scoped>
 .text{
 	font-size: $uni-font-size-sm;
