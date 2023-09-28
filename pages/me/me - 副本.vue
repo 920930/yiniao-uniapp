@@ -1,10 +1,4 @@
 <template>
-	<view class="noti">
-		<uni-icons type="notification" size="22" />
-	</view>
-	<view class="top">
-		
-	</view>
 	<view class="info">
 		<view class="info-left">
 			<image src="../../static/logo.png" class="info-left-img" />
@@ -45,50 +39,35 @@
 	
 	<view class="list">
 		<view class="list-item">
-			<view class="list-item-left">
-				<uni-icons type="wallet" size="22" />
-				<text>订单管理</text>
-			</view>
+			<text>订单管理</text>
 			<view class="list-item-right">
 				<text>查看全部</text>
 				<uni-icons type="right" color="#999" />
 			</view>
 		</view>
 		<view class="list-item">
-			<view class="list-item-left">
-				<uni-icons type="email" size="22" />
-				<text>我的质保卡</text>
-			</view>
+			<text>我的质保卡</text>
 			<view class="list-item-right">
 				<text>质保卡</text>
 				<uni-icons type="right" color="#999" />
 			</view>
 		</view>
 		<view class="list-item">
-			<view class="list-item-left">
-				<uni-icons type="star" size="22" />
-				<text>邀请好友</text>
-			</view>
+			<text>邀请好友</text>
 			<view class="list-item-right">
 				<text>赚佣金</text>
 				<uni-icons type="right" color="#999" />
 			</view>
 		</view>
 		<view class="list-item">
-			<view class="list-item-left">
-				<uni-icons type="email" size="22" />
-				<text>意见反馈</text>
-			</view>
+			<text>意见反馈</text>
 			<view class="list-item-right">
 				<text>益鸟因您而改变</text>
 				<uni-icons type="right" color="#999" />
 			</view>
 		</view>
 		<view class="list-item">
-			<view class="list-item-left">
-				<uni-icons type="phone" size="22" />
-				<text>联系客服</text>
-			</view>
+			<text>联系客服</text>
 			<view class="list-item-right">
 				<text>400-700-009</text>
 				<uni-icons type="right" color="#999" />
@@ -98,53 +77,33 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue';
-let menuButtonInfo = uni.getMenuButtonBoundingClientRect();
-console.log(menuButtonInfo)
-const info = reactive({
-	top: menuButtonInfo.top + 'px',
-	height: menuButtonInfo.height + 'px',
-	infoTop: menuButtonInfo.top + menuButtonInfo.height + 30 + 'px',
-})
+
 </script>
 
 <style lang="scss" scoped>
-.noti{
-	position: absolute;
-	top: v-bind('info.top');
-	left: 10px;
-	height: v-bind('info.height');
-	display: flex;
-	align-items: center;
-}
 .info{
-	position: relative;
-	padding: v-bind('info.infoTop') 30rpx 120rpx;
 	display: flex;
+	margin: 40rpx 30rpx;
 	align-items: center;
-	background: linear-gradient(to bottom, $uni-bg-color-green, white);
-	z-index: -10;
 	&-left{
 		flex: 1;
 		display: flex;
 		align-items: center;
 		&-img{
-			width: 85rpx;
-			height: 85rpx;
+			width: 100rpx;
+			height: 100rpx;
 			border-radius: 50%;
-			margin-right: 20rpx;
+			margin-right: 15rpx;
 		}
 		&-text{
-			font-weight: 600;
 			&-act{
-				color: $uni-text-color;
-				font-size: $uni-font-size-sm;
-				font-weight: 500;
+				color: $uni-text-color-grey;
+				font-size: $uni-font-size-base;
 			}
 		}
 	}
 	&-right{
-		color: $uni-text-color;
+		color: $uni-text-color-grey;
 		&-text{
 			font-size: $uni-font-size-base;
 		}
@@ -153,7 +112,7 @@ const info = reactive({
 
 .fuli{
 	box-shadow: 0 0 10rpx 5rpx $uni-bg-color-shadow;
-	margin: -60rpx 30rpx 0;
+	margin: 0 30rpx;
 	border-radius: 10rpx;
 	padding: 20rpx;
 	&-top{
@@ -199,10 +158,6 @@ const info = reactive({
 		justify-content: space-between;
 		align-items: center;
 		color: $uni-text-color;
-		&-left{
-			display: flex;
-			gap: 10rpx;
-		}
 		&-right{
 			color: $uni-text-color-grey;
 		}

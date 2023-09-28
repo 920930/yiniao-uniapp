@@ -29,7 +29,8 @@
 			"path" : "pages/me/me",
 			"style": {
 				"navigationBarTitleText": "会员中心",
-				"enablePullDownRefresh": false
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
 			}
 		},{
 				"path" : "pages/product/detail",
