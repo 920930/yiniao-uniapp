@@ -2,9 +2,6 @@
 	<view class="noti">
 		<uni-icons type="notification" size="22" />
 	</view>
-	<view class="top">
-		
-	</view>
 	<view class="info">
 		<view class="info-left">
 			<image src="../../static/logo.png" class="info-left-img" />
