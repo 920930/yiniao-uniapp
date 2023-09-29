@@ -56,7 +56,7 @@
 		</view>
 		<view class="list-item">
 			<view class="list-item-left">
-				<uni-icons type="email" size="22" />
+				<uni-icons type="compose" size="22" />
 				<text>我的质保卡</text>
 			</view>
 			<view class="list-item-right">
@@ -66,7 +66,7 @@
 		</view>
 		<view class="list-item">
 			<view class="list-item-left">
-				<uni-icons type="star" size="22" />
+				<uni-icons type="chat" size="22" />
 				<text>邀请好友</text>
 			</view>
 			<view class="list-item-right">
